@@ -1,6 +1,4 @@
 //initialize function 
-
-
 function initialize () {
    
     player = Arnold("playerShip");
@@ -14,26 +12,14 @@ function initialize () {
     // console.log(player);
 
     alienArray = [a0, a1, a2, a3, a4, a5];
-    let currentAlien = alienArray[0];
-    // console.log(alienArray[1]) 
-    // alienArray.push[a0];
-    // alienArray.push[a1];
-    // alienArray.push[a2];
-    // alienArray.push[a3];
-    // alienArray.push[a4];
-    // alienArray.push[a5];
-
-
-    //disable start button once game starts
-    
-    // document.getElementById("startGame").disabled = true;
+    // console.log(alienArray[1])
+    // let currentAlien = alienArray[0];
+    i = 0;
+   
     refresh();
+
+
 }
-
-// let currentAlien = alienArray = [a0, a1, a2, a3, a4, a5];
-let currentAlien = alienArray[0];
-// console.log(currentAlien)
-
 
 //function to refresh player values
 
@@ -63,8 +49,6 @@ let arnoldShip = new Arnold ("arnoldsShip")
 
 //function to calculate random values for aliens
 function getRandomMinMax (min, max) {
-// min = Math.ceil(min);
-// max = Math.ceil(max);
 return Math.floor(Math.random() * (max - min + 1) + min);  
 }
 
@@ -96,44 +80,47 @@ return alien;
 
 
 
-///Player attack function 
+///Player attack function
 
 let playerAttack = () => {
     //if alien and yourself are alive, then you can attack
-    if (currentAlien.hull > 0 && player.hull > 0) {
+    console.log(`${player.hull} is the starting health for player **** ${alienArray[i].hull} is the starting health for alien *************`)
+    
+    while (alienArray[i].hull > 0 && player.hull > 0) {
         //declare a chance of attacking 
         let chance = Math.floor(Math.random())
 
-        if (chance < player.accuracy) {
-         currentAlien.hull -= player.firepower
+        if (player.accuracy > chance) {
+         alienArray[i].hull -= player.firepower
+         console.log(`You hit the Alien! ${alienArray[i].hull} is their health`);
+        }  
+            if (alienArray[i].hull <= 0) {
+                i++;
+            }
+
+        else {
+            console.log("you missed!")
         }
-        
-    }
-    console.log(currentAlien.hull);
+
+        if (alienArray[i].accuracy > chance) {
+            player.hull -= alienArray[i].firepower
+            // console.log("Enemy Hit you!!!");
+            console.log(`Enemy Hit you!!${player.hull} is your health now! ${alienArray[i].hull} is the aliens health`)
+           }
+           else {
+               console.log("Enemy Missed");
+           } 
+    
+    } 
+
 } 
 
-playerAttack(); 
 
+let attackFunc = () => {
+    document.getElementById("attack");
+    playerAttack(); 
 
+}
 
-
-
-
-
-
-
-
-
-
-
-// attack function 
-const attackFunc = () => {
-    //grab the attack button 
-    let attackButton = document.getElementById('attack');
-    console.log(hi)
-
-    playerAttack();
-    //attack the enemy decrease enemy health by firepower
-} 
 
 
